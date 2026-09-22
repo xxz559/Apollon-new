@@ -932,10 +932,12 @@ if (ImGui::Button(OBFUSCATE("Buttons"))) pageId = 8;
                             ImGui::PushItemWidth(0);
                         }
 						ImGui::Checkbox(OBFUSCATE("FullBright"), &fullBright);
-				        ImGui::SameLine();
-			        	ImGui::Checkbox(OBFUSCATE("OSMT FPS Boost"), &osmtBoost);
-						ImGui::SameLine();
-						ImGui::Checkbox(OBFUSCATE("Freelook"), &look360);
+                        ImGui::SameLine();
+
+                        ImGui::Checkbox(OBFUSCATE("OSMT FPS Boost"), &osmtBoost);
+                        ImGui::SameLine();
+
+                        ImGui::Checkbox(OBFUSCATE("Freelook"), &look360);
                         ImGui::Checkbox(OBFUSCATE("No Hurt Cam"), &noHurtCam);
 			 	        ImGui::SameLine();
 				        ImGui::Checkbox(OBFUSCATE("No Cam Distortion"), &noCamDist);
@@ -1112,10 +1114,10 @@ if (ImGui::Button(OBFUSCATE("Buttons"))) pageId = 8;
 				ImGui::EndTabBar();
                 }
 				break;
-            case 7:
-				//ImGui::Text(inMemoryFunction.c_str());
-				//ImGui::DragInt(OBFUSCATE("ActorId"), &nearActorId, 0.05f, 1, 50);
-				ImGui::Text(OBFUSCATE("Thanks MCPELIFE for a decent pairip bypass :)"));
+            case 7: { 
+                //ImGui::Text(inMemoryFunction.c_str());
+                //ImGui::DragInt(OBFUSCATE("ActorId"), &nearActorId, 0.05f, 1, 50);
+                ImGui::Text(OBFUSCATE("Thanks MCPELIFE for a decent pairip bypass :)"));
                 DrawSeparatorToWindowEdge(endVertical, 16.0f);
                 ImGui::Text(OBFUSCATE("Mod Version: v4.62")); 
                 ImGui::Text(OBFUSCATE("Game Version: 1.21.111"));
@@ -1123,31 +1125,92 @@ if (ImGui::Button(OBFUSCATE("Buttons"))) pageId = 8;
                 ImGui::Text(OBFUSCATE("Bit: 64")); 
                 #elif defined(__ARM_ARCH_7A__)
                 ImGui::Text(OBFUSCATE("Bit: 32"));
-				#else
-				ImGui::Text(OBFUSCATE("Bit: 86_64"));
+                #else
+                ImGui::Text(OBFUSCATE("Bit: 86_64"));
                 #endif
                 DrawSeparatorToWindowEdge(endVertical, 16.0f);
-				float imageSize = ImGui::GetFontSize();
-				ImGui::Image((ImTextureID)(intptr_t)youtube_icon, ImVec2(imageSize, imageSize));
-				ImGui::SameLine(calcResX * 35);
-				ImGui::Text(OBFUSCATE(": @zeff_source"));
-				DrawSeparatorToWindowEdge(endVertical, 16.0f);
-				ImGui::Image((ImTextureID)(intptr_t)telegram_icon, ImVec2(imageSize, imageSize));
-				ImGui::SameLine(calcResX * 35);
-				ImGui::Text(OBFUSCATE(": @zeff_cheats"));
+                float imageSize = ImGui::GetFontSize();
+                ImGui::Image((ImTextureID)(intptr_t)youtube_icon, ImVec2(imageSize, imageSize));
+                ImGui::SameLine(calcResX * 35);
+                ImGui::Text(OBFUSCATE(": @zeff_source"));
                 DrawSeparatorToWindowEdge(endVertical, 16.0f);
-				ImGui::Image((ImTextureID)(intptr_t)discord_icon, ImVec2(imageSize, imageSize));
-				ImGui::SameLine(calcResX * 35);
-				ImGui::Text(OBFUSCATE(": https://discord.gg/RSC4ZrVjS8"));
+                ImGui::Image((ImTextureID)(intptr_t)telegram_icon, ImVec2(imageSize, imageSize));
+                ImGui::SameLine(calcResX * 35);
+                ImGui::Text(OBFUSCATE(": @zeff_cheats"));
+                DrawSeparatorToWindowEdge(endVertical, 16.0f);
+                ImGui::Image((ImTextureID)(intptr_t)discord_icon, ImVec2(imageSize, imageSize));
+                ImGui::SameLine(calcResX * 35);
+                ImGui::Text(OBFUSCATE(": https://discord.gg/RSC4ZrVjS8"));
                 DrawSeparatorToWindowEdge(endVertical, 16.0f);
                 ImGui::Text(OBFUSCATE("Made By ZEFF"));
                 break;
-        }
-        ImGui::EndGroup();
-		ImGui::PopStyleVar(ImGuiStyleVar_WindowTitleAlign);
-    }
+            }
+            case 8: {
+	           ImGui::Checkbox(OBFUSCATE("Edit Mode (drag/resize in menu)"), &editButtonsMode);
+	           DrawSeparatorToWindowEdge(endVertical, 16.0f);
+    
+	if (ImGui::Button(OBFUSCATE("Add Button"))) {
+		CustomButton btn;
+		btn.name = "New";
+		btn.action = 1;
+		btn.enabled = true;
+		btn.x = 200.0f;
+		btn.y = 200.0f;
+		btn.w = 150.0f;
+		btn.h = 80.0f;
+		customButtons.push_back(btn);
 	}
+	
+	DrawSeparatorToWindowEdge(endVertical, 16.0f);
+	
+	for (size_t i = 0; i < customButtons.size(); i++) {
+		CustomButton& btn = customButtons[i];
+		ImGui::PushID((int)i);
+		
+		char nameBuf[64];
+		strncpy(nameBuf, btn.name.c_str(), 63);
+		nameBuf[63] = 0;
+		if (ImGui::InputText(OBFUSCATE("##Name"), nameBuf, 64)) {
+			btn.name = nameBuf;
+		}
+		
+		ImGui::SameLine();
+		ImGui::Checkbox(OBFUSCATE("##On"), &btn.enabled);
+		
+		ImGui::Combo(OBFUSCATE("Action"), &btn.action, ButtonActions, IM_ARRAYSIZE(ButtonActions));
+		// Позиция X + Y
+        ImGui::PushItemWidth(calcResX * 130);
+        ImGui::DragFloat(OBFUSCATE("X"), &btn.x, 1.0f, 0.0f, static_cast<float>(screenWidth));
+        ImGui::SameLine();
+        ImGui::DragFloat(OBFUSCATE("Y"), &btn.y, 1.0f, 0.0f, static_cast<float>(screenHeight));
+        ImGui::PopItemWidth();
+
+        // Размер W + H
+        ImGui::PushItemWidth(calcResX * 130);
+        ImGui::DragFloat(OBFUSCATE("W"), &btn.w, 1.0f, 40.0f, 800.0f);
+        ImGui::SameLine();
+        ImGui::DragFloat(OBFUSCATE("H"), &btn.h, 1.0f, 30.0f, 400.0f);
+        ImGui::PopItemWidth();
+		
+		if (ImGui::Button(OBFUSCATE("Delete"))) {
+			customButtons.erase(customButtons.begin() + i);
+			i--;
+			ImGui::PopID();
+			continue;
+		}
+		
+		DrawSeparatorToWindowEdge(endVertical, 16.0f);
+		ImGui::PopID();
 	}
+	break;
+}
+ 
+    }                                                  // закрывает switch (pageId)
+    ImGui::EndGroup();
+    ImGui::PopStyleVar(ImGuiStyleVar_WindowTitleAlign);
+    }                                                  // закрывает if (ImGui::Begin(...))
+    }                                                  // закрывает if (!panic)
+    }                                                  // закрывает функцию BeginDraw
 	if (CI != NULL) {
 		if (!inMenu && !panic) {
 			if (inHudScreen) {
