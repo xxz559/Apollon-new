@@ -1,3 +1,8 @@
+#include <random>
+#include <map>
+#include <GLES3/gl3.h>
+#include <GLES2/gl2.h>
+#include <EGL/egl.h>
 #include "Images/death_icon.h"
 #include "Images/heart_icon.h"
 #include "Images/heart_blink_icon.h"

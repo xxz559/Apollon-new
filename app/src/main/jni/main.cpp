@@ -1,3 +1,9 @@
+#include "variables.h"
+#include "hook_utils.h"
+#include "buttons.h"
+#include "hook_classes.h"
+#include "menu.h"
+#include "dark_theme.h"
 #include <jni.h>
 #include <android/native_activity.h>
 #include <errno.h>
@@ -81,7 +87,7 @@ string GameName = oxorany("com.mojang.minecraftpe");
 const char* MineLib = OBFUSCATE("libminecraftpe.so");
 
 
-struct My_Patches {MemoryPatch
+struct My_Patches {Memory0Patch
 Font0, Font1, Font2, Font3, Font4, Font5, Font6, Font7, Font8, Font9, Font10,
 NoHurtCam, NoCamDistortion, NoBoatRotation, NoCamSleep, PlaceCamera,
 NoSlowDown,
@@ -97,17 +103,6 @@ AntiKnockBack,
 NativeKeyHandler,
 NoCaveVignette
 ;} hexPatches;
-
-
-#include "offsets.h"
-#include "dark_theme.h"
-#include "Vector.h"
-#include "hook_classes.h"
-#include "variables.h"
-#include "buttons.h"
-#include "hud.h"
-#include "hook_utils.h"
-#include "menu_utils.h"
 
 
 extern "C" {

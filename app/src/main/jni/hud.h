@@ -4,6 +4,7 @@
 #include <sstream>
 #include <iomanip>
 #include <vector>
+#include "menu_utils.h"
 
 // ===== Настройки =====
 bool hudEnabled = true;
