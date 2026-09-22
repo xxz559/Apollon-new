@@ -1148,60 +1148,6 @@ if (ImGui::Button(OBFUSCATE("Buttons"))) pageId = 8;
     }
 	}
 	}
-	case 8: {
-	ImGui::Checkbox(OBFUSCATE("Edit Mode (drag/resize in menu)"), &editButtonsMode);
-	DrawSeparatorToWindowEdge(endVertical, 16.0f);
-	
-	if (ImGui::Button(OBFUSCATE("Add Button"))) {
-		CustomButton btn;
-		btn.name = "New";
-		btn.action = 1;
-		btn.enabled = true;
-		btn.x = 200.0f;
-		btn.y = 200.0f;
-		btn.w = 150.0f;
-		btn.h = 80.0f;
-		customButtons.push_back(btn);
-	}
-	
-	DrawSeparatorToWindowEdge(endVertical, 16.0f);
-	
-	for (size_t i = 0; i < customButtons.size(); i++) {
-		CustomButton& btn = customButtons[i];
-		ImGui::PushID((int)i);
-		
-		char nameBuf[64];
-		strncpy(nameBuf, btn.name.c_str(), 63);
-		nameBuf[63] = 0;
-		if (ImGui::InputText(OBFUSCATE("##Name"), nameBuf, 64)) {
-			btn.name = nameBuf;
-		}
-		
-		ImGui::SameLine();
-		ImGui::Checkbox(OBFUSCATE("##On"), &btn.enabled);
-		
-		ImGui::Combo(OBFUSCATE("Action"), &btn.action, ButtonActions, IM_ARRAYSIZE(ButtonActions));
-		
-		ImGui::DragFloat(OBFUSCATE("##X"), &btn.x, 1.0f, 0.0f, (float)screenWidth);
-		ImGui::SameLine();
-		ImGui::DragFloat(OBFUSCATE("##Y"), &btn.y, 1.0f, 0.0f, (float)screenHeight);
-		
-		ImGui::DragFloat(OBFUSCATE("##W"), &btn.w, 1.0f, 40.0f, 800.0f);
-		ImGui::SameLine();
-		ImGui::DragFloat(OBFUSCATE("##H"), &btn.h, 1.0f, 30.0f, 400.0f);
-		
-		if (ImGui::Button(OBFUSCATE("Delete"))) {
-			customButtons.erase(customButtons.begin() + i);
-			i--;
-			ImGui::PopID();
-			continue;
-		}
-		
-		DrawSeparatorToWindowEdge(endVertical, 16.0f);
-		ImGui::PopID();
-	}
-	break;
-}
 	if (CI != NULL) {
 		if (!inMenu && !panic) {
 			if (inHudScreen) {
