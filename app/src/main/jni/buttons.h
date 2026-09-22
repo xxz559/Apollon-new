@@ -1,0 +1,170 @@
+#pragma once
+#include <vector>
+#include <string>
+#include <ImGui/imgui.h>
+
+bool editButtonsMode = false;
+
+const char* ButtonActions[] = {
+    "None",
+    "KillAura",
+    "MobAura",
+    "NoClip",
+    "FullBright",
+    "Xray",
+    "NoSlowDown",
+    "FastFall",
+    "AutoClicker",
+    "Sprint",
+    "AutoClickBuild",
+    "AntiKnockback",
+    "Step",
+    "LadderFly"
+};
+
+// Вставить сюда
+constexpr int ButtonActionCount =
+    sizeof(ButtonActions) / sizeof(ButtonActions[0]);
+
+const char* GetButtonActionName(int action) {
+    if (action < 0 || action >= ButtonActionCount) {
+        return ButtonActions[0];
+    }
+
+    return ButtonActions[action];
+}
+
+// Ниже уже существующая функция
+void ExecuteButtonAction(int action) {
+    switch (action) {
+        case 1:  killAura = !killAura; break;
+        case 2:  mobAura = !mobAura; break;
+        // ...
+    }
+}
+    
+    
+void ExecuteButtonAction(int action) {
+    switch (action) {
+        case 1:  killAura = !killAura; break;
+        case 2:  mobAura = !mobAura; break;
+        case 3:  noclip = !noclip; break;
+        case 4:  fullBright = !fullBright; break;
+        case 5:  xrayDefault = !xrayDefault; rebuildChunkGeometry = true; break;
+        case 6:  noSlowDown = !noSlowDown; break;
+        case 7:  fastFall = !fastFall; break;
+        case 8:  autoClicker = !autoClicker; break;
+        case 9:  alwaysSprinting = !alwaysSprinting; break;
+        case 10: fastBridge = !fastBridge; break;
+        case 11: antiKnockback = !antiKnockback; break;
+        case 12: step = !step; break;
+        case 13: ladderFly = !ladderFly; break;
+    }
+}
+
+bool IsButtonActionOn(int action) {
+    switch (action) {
+        case 1:  return killAura;
+        case 2:  return mobAura;
+        case 3:  return noclip;
+        case 4:  return fullBright;
+        case 5:  return xrayDefault;
+        case 6:  return noSlowDown;
+        case 7:  return fastFall;
+        case 8:  return autoClicker;
+        case 9:  return alwaysSprinting;
+        case 10: return fastBridge;
+        case 11: return antiKnockback;
+        case 12: return step;
+        case 13: return ladderFly;
+    }
+    return false;
+}
+
+void RenderCustomButtons() {
+    if (inMenu) {
+        // В меню — показываем кнопки только в режиме редактирования (drag + resize)
+        if (!editButtonsMode) return;
+        
+        for (size_t i = 0; i < customButtons.size(); i++) {
+            CustomButton& btn = customButtons[i];
+            if (!btn.enabled) continue;
+            
+            ImGui::SetNextWindowPos(ImVec2(btn.x, btn.y), ImGuiCond_Always);
+            ImGui::SetNextWindowSize(ImVec2(btn.w, btn.h), ImGuiCond_Always);
+            
+            std::string windowName = "Edit##btn_" + std::to_string(i);
+            
+            ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(4, 4));
+            ImGui::Begin(windowName.c_str(), nullptr,
+                ImGuiWindowFlags_NoCollapse |
+                ImGuiWindowFlags_NoScrollbar |
+                ImGuiWindowFlags_NoScrollWithMouse);
+            
+            // Сохраняем новую позицию/размер после перетаскивания
+            ImVec2 pos = ImGui::GetWindowPos();
+            ImVec2 size = ImGui::GetWindowSize();
+            btn.x = pos.x;
+            btn.y = pos.y;
+            btn.w = size.x;
+            btn.h = size.y;
+            
+            ImGui::Text("%s", btn.name.c_str());
+            ImGui::Text("Action: %s", GetButtonActionName(btn.action));
+            
+            ImGui::End();
+            ImGui::PopStyleVar();
+        }
+    } else {
+        // В игре — показываем рабочие кнопки
+        for (size_t i = 0; i < customButtons.size(); i++) {
+            CustomButton& btn = customButtons[i];
+
+            if (btn.action < 0 || btn.action >= ButtonActionCount) {
+            btn.action = 0;
+}
+
+            if (!btn.enabled) {
+            continue;
+}
+            if (btn.action == 0) continue;
+            
+            ImGui::SetNextWindowPos(ImVec2(btn.x, btn.y), ImGuiCond_Always);
+            ImGui::SetNextWindowSize(ImVec2(btn.w, btn.h), ImGuiCond_Always);
+            
+            std::string windowName = "##btnGame_" + std::to_string(i);
+            
+            bool isOn = IsButtonActionOn(btn.action);
+            
+            if (isOn) {
+                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.7f, 0.0f, 1.0f, 0.7f));
+                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.8f, 0.2f, 1.0f, 0.8f));
+                ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.6f, 0.0f, 0.9f, 0.9f));
+            } else {
+                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.0f, 0.0f, 0.0f, 0.5f));
+                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.2f, 0.2f, 0.2f, 0.6f));
+                ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.3f, 0.3f, 0.3f, 0.7f));
+            }
+            
+            ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+            ImGui::Begin(windowName.c_str(), nullptr,
+                ImGuiWindowFlags_NoTitleBar |
+                ImGuiWindowFlags_NoResize |
+                ImGuiWindowFlags_NoMove |
+                ImGuiWindowFlags_NoScrollbar |
+                ImGuiWindowFlags_NoScrollWithMouse |
+                ImGuiWindowFlags_NoBackground);
+            
+            if (ImGui::Button(btn.name.c_str(), ImVec2(btn.w, btn.h))) {
+                ExecuteButtonAction(btn.action);
+                if (btn.action == 1) onFunctionSound = true;    // KillAura
+                else if (btn.action == 2) onFunctionSound = true; // MobAura
+                else onFunctionSound = true;
+            }
+            
+            ImGui::End();
+            ImGui::PopStyleVar();
+            ImGui::PopStyleColor(3);
+        }
+    }
+}
