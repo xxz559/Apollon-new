@@ -33,17 +33,7 @@ const char* GetButtonActionName(int action) {
 
     return ButtonActions[action];
 }
-
-// Ниже уже существующая функция
-void ExecuteButtonAction(int action) {
-    switch (action) {
-        case 1:  killAura = !killAura; break;
-        case 2:  mobAura = !mobAura; break;
-        // ...
-    }
-}
-    
-    
+      
 void ExecuteButtonAction(int action) {
     switch (action) {
         case 1:  killAura = !killAura; break;
