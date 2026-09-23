@@ -92,10 +92,6 @@ string GameName = oxorany("com.mojang.minecraftpe");
 #include "hud.h"
 #include "dark_theme.h"
 #include "buttons.h"
-#include "hook_utils.h"
-#include "hud.h"
-#include "dark_theme.h"
-#include "buttons.h"
 
 void Patches();
 
