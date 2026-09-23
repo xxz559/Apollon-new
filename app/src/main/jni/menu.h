@@ -1,3 +1,4 @@
+#pragma once
 #include "Images/YT.h"
 #include "Images/Telegram.h"
 #include "Images/Discord.h"
