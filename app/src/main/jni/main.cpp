@@ -70,9 +70,12 @@ typedef uint64_t _QWORD;
 #define __int64 long long
 #define _BYTE unsigned char
 
-
 using json = nlohmann::json;
 
+const char* MineLib = OBFUSCATE("libminecraftpe.so");
+
+#include "offsets.h"
+#include "Vector.h"
 #include "hook_classes.h"
 #include "hook_utils.h"
 #include "menu_utils.h"
@@ -81,13 +84,13 @@ using json = nlohmann::json;
 #include "buttons.h"
 #include "variables.h"
 #include "menu.h"
+
 int screenWidth = 0;
 int screenHeight = 0;
 float scaleGlobal, calcResX;
 bool g_Initialized = false;
 ImGuiWindow* g_window = NULL;
 string GameName = oxorany("com.mojang.minecraftpe");
-const char* MineLib = OBFUSCATE("libminecraftpe.so");
 
 
 struct My_Patches {Memory0Patch
