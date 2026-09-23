@@ -6,23 +6,6 @@
 #include <vector>
 #include "menu_utils.h"
 
-// ===== Настройки =====
-bool hudEnabled = true;
-bool hudWatermark = true;
-bool hudCoords = true;
-bool hudHotkeys = true;
-bool hudActivePotions = true;
-bool hudTargetHUD = true;
-
-// ===== Позиции =====
-float hudWatermarkX = 20.0f;
-float hudWatermarkY = 20.0f;
-float hudCoordsX = 0.0f;         // 0 = автоматически справа
-float hudCoordsY = 20.0f;
-float hudPotionsX = 0.0f;        // 0 = автоматически справа
-float hudPotionsY = 200.0f;
-float hudScale = 1.0f;
-
 // ===== Цвета =====
 ImU32 HUD_BG      = IM_COL32(0, 0, 0, 180);
 ImU32 HUD_BORDER  = IM_COL32(80, 80, 80, 255);
