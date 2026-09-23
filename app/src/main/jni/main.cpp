@@ -95,7 +95,8 @@ string GameName = oxorany("com.mojang.minecraftpe");
 #include "menu.h"
 
 
-struct My_Patches {Memory0Patch
+struct My_Patches {
+    Memory0Patch
 Font0, Font1, Font2, Font3, Font4, Font5, Font6, Font7, Font8, Font9, Font10,
 NoHurtCam, NoCamDistortion, NoBoatRotation, NoCamSleep, PlaceCamera,
 NoSlowDown,
