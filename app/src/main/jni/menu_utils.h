@@ -1,3 +1,5 @@
+#pragma once
+
 #include <random>
 #include <map>
 #include <GLES3/gl3.h>
