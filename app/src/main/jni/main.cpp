@@ -77,12 +77,14 @@ const char* MineLib = OBFUSCATE("libminecraftpe.so");
 #include "offsets.h"
 #include "Vector.h"
 #include "hook_classes.h"
+
+#include "variables.h"
 #include "hook_utils.h"
+
 #include "menu_utils.h"
 #include "hud.h"
 #include "dark_theme.h"
 #include "buttons.h"
-#include "variables.h"
 #include "menu.h"
 
 int screenWidth = 0;
