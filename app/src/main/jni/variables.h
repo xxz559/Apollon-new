@@ -1,3 +1,19 @@
+// ===== HUD переменные =====
+bool hudEnabled = true;
+bool hudWatermark = true;
+bool hudCoords = true;
+bool hudHotkeys = true;
+bool hudActivePotions = true;
+bool hudTargetHUD = true;
+
+float hudWatermarkX = 20.0f;
+float hudWatermarkY = 20.0f;
+float hudCoordsX = 0.0f;
+float hudCoordsY = 20.0f;
+float hudPotionsX = 0.0f;
+float hudPotionsY = 200.0f;
+float hudScale = 1.0f;
+// ==========================
 json cfg;
 bool fullBright, fogEnable, fastDrop, noHurtCam, noCamDist, noBoatRotation,
 noCamSleep, placeCam, unlockMarket, noSlowDown, fastFall,
