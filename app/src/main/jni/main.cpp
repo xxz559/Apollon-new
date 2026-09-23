@@ -1,9 +1,3 @@
-#include "variables.h"
-#include "hook_utils.h"
-#include "buttons.h"
-#include "hook_classes.h"
-#include "menu.h"
-#include "dark_theme.h"
 #include <jni.h>
 #include <android/native_activity.h>
 #include <errno.h>
@@ -78,6 +72,15 @@ typedef uint64_t _QWORD;
 
 
 using json = nlohmann::json;
+
+#include "hook_classes.h"
+#include "hook_utils.h"
+#include "menu_utils.h"
+#include "hud.h"
+#include "dark_theme.h"
+#include "buttons.h"
+#include "variables.h"
+#include "menu.h"
 int screenWidth = 0;
 int screenHeight = 0;
 float scaleGlobal, calcResX;
