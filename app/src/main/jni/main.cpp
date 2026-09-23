@@ -89,7 +89,6 @@ ImGuiWindow* g_window = NULL;
 string GameName = oxorany("com.mojang.minecraftpe");
 
 #include "hook_utils.h"
-#include "menu_utils.h"
 #include "hud.h"
 #include "dark_theme.h"
 #include "buttons.h"
