@@ -1,4 +1,3 @@
-#include "hud.h"
 json cfg;
 bool fullBright, fogEnable, fastDrop, noHurtCam, noCamDist, noBoatRotation,
 noCamSleep, placeCam, unlockMarket, noSlowDown, fastFall,
@@ -687,3 +686,7 @@ for (int i = 0; i < btnCount; i++) {
     hudPotionsY = cfg.value("hudPotionsY", hudPotionsY);
     hudScale = cfg.value("hudScale", hudScale);
 }
+// variables.h
+// ... existing declarations and definitions ...
+
+#include "hud.h"
