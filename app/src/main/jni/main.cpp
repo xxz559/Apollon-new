@@ -92,11 +92,18 @@ string GameName = oxorany("com.mojang.minecraftpe");
 #include "hud.h"
 #include "dark_theme.h"
 #include "buttons.h"
+#include "hook_utils.h"
+#include "hud.h"
+#include "dark_theme.h"
+#include "buttons.h"
+
+void Patches();
+
 #include "menu.h"
 
 
 struct My_Patches {
-    Memory0Patch
+    MemoryPatch
 Font0, Font1, Font2, Font3, Font4, Font5, Font6, Font7, Font8, Font9, Font10,
 NoHurtCam, NoCamDistortion, NoBoatRotation, NoCamSleep, PlaceCamera,
 NoSlowDown,
