@@ -1,3 +1,4 @@
+#pragma once
 void embraceTheDarkness()
 {
   ImVec4* colors = ImGui::GetStyle().Colors;
