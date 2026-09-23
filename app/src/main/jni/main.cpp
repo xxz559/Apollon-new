@@ -79,20 +79,21 @@ const char* MineLib = OBFUSCATE("libminecraftpe.so");
 #include "hook_classes.h"
 
 #include "variables.h"
-#include "hook_utils.h"
 
+int screenWidth = 0;
+int screenHeight = 0;
+float scaleGlobal = 1.0f;
+float calcResX = 1.0f;
+bool g_Initialized = false;
+ImGuiWindow* g_window = NULL;
+string GameName = oxorany("com.mojang.minecraftpe");
+
+#include "hook_utils.h"
 #include "menu_utils.h"
 #include "hud.h"
 #include "dark_theme.h"
 #include "buttons.h"
 #include "menu.h"
-
-int screenWidth = 0;
-int screenHeight = 0;
-float scaleGlobal, calcResX;
-bool g_Initialized = false;
-ImGuiWindow* g_window = NULL;
-string GameName = oxorany("com.mojang.minecraftpe");
 
 
 struct My_Patches {Memory0Patch
